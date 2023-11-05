@@ -23,8 +23,17 @@ app.post('/run', (req, res) => {
     const { mode } = req.body;
     // read the file out.txt
     // fs.writeFileSync('out.txt', '');
+    fs.writeFileSync('../out.txt', '');
     const out = fs.readFileSync('out.txt');
+    // fs.createWriteStream("../Codes_Examples/code.py");
+    fs.writeFileSync('../Codes_Examples/code.py', code);
     console.log(out.toString());
-
+    const pythonProcess = spawn('python3', ["../parser_ray.py",]);
+    pythonProcess.stdout.on('data', (data) => {
+        console.log(data.toString());
+    });
+    pythonProcess.stderr.on('data', (data) => {
+        console.log(data.toString());
+    });
     res.send({output : out.toString()});
 });

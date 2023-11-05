@@ -1,2 +1,2 @@
-## Example code
-print("Hello World!")
+import georay
+2+3
