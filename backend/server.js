@@ -27,29 +27,29 @@ async function sleep(ms) {
 app.post('/run',async (req, res) => {
     const { code } = req.body;
     const { mode } = req.body;
-    // read the file out.txt
-    // fs.writeFileSync('out.txt', '');
 
-    // const temp = fs.open('../Codes_Examples/code.py', 'w')
-    // console.log(temp);
     fs.writeFile('../Codes_Examples/code.py', code, 'utf-8', (err) => {
         if (err) {
           console.error('Error writing to the file:', err);
           return;
         }
       
-        console.log('File written successfully.');
+        console.log('File write successfully.');
     });
-    await sleep(2000);
-    // fs.close('../Codes_Examples/code.py', (err) => {
-    //     if (err) {
-    //       console.error('Error closing the file:', err);
-    //       return;
-    //     }
+
+
+    fs.readFile('../Codes_Examples/code.py', 'utf-8', (err,data) => {
+        if (err) {
+          console.error('Error writing to the file:', err);
+          return;
+        }
       
-    //     console.log('File closed successfully');
-    // });
-    const pythonProcess = spawn('python3', ["../parser_ray.py",]);
+        console.log('File read successfully.');
+        console.log(data);
+    });
+    
+
+    var pythonProcess = spawn('python3', ["../parser_ray.py",]);
     pythonProcess.stdout.on('data', (data) => {
         console.log(data.toString());
     });
@@ -57,6 +57,5 @@ app.post('/run',async (req, res) => {
     pythonProcess.stderr.on('data', (data) => {
         console.log(data.toString());
     });
-
     res.send({output : "temp"});
 });
