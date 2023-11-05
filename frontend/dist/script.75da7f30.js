@@ -5599,12 +5599,13 @@ document.getElementById("run").addEventListener("click", function () {
     }
   }).then(function (response) {
     // print(response);
-    console.log('Response from the server:');
+    // console.log('Response from the server:');
     return response.data;
   }).then(function (data) {
-    console.log(data);
     // output the value to the element with id "output"
-    document.getElementById("output").innerHTML = data.output;
+    data = data.output.split('\n').join('<br>');
+    console.log("check ", data);
+    document.getElementById("output").innerHTML = data;
   }).catch(function (error) {
     console.error('Error:', error);
   });
@@ -5634,7 +5635,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41611" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33149" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

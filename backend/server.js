@@ -48,14 +48,21 @@ app.post('/run',async (req, res) => {
         console.log(data);
     });
     
-
+    var str = "";
     var pythonProcess = spawn('python3', ["../parser_ray.py",]);
     pythonProcess.stdout.on('data', (data) => {
         console.log(data.toString());
+        str += data.toString() + "\n";
     });
     // time.sleep(5);
     pythonProcess.stderr.on('data', (data) => {
         console.log(data.toString());
     });
-    res.send({output : "temp"});
+
+    // check while python process is running
+    while(pythonProcess.exitCode == null){
+        await sleep(1000);
+    }
+
+    res.send({output : str});
 });

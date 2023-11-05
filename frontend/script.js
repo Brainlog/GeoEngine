@@ -142,12 +142,13 @@ let split;
       'Content-Type': 'application/json',
     }}).then((response) => {
       // print(response);
-      console.log('Response from the server:');
+      // console.log('Response from the server:');
       return response.data;
     }).then((data) => {
-      console.log(data);
       // output the value to the element with id "output"
-      document.getElementById("output").innerHTML = data.output;
+      data = data.output.split('\n').join('<br>');
+      console.log("check ",data);
+      document.getElementById("output").innerHTML = data;
     }).catch((error) => {
       console.error('Error:', error);
     });
