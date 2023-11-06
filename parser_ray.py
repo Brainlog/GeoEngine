@@ -8,7 +8,6 @@ def parser():
     file.write(str)
     file.close()
     try:
-        # print("str :",str)
         output = subprocess.check_output(["python3", "../Codes_Examples/code.py"], stderr=log)
     except Exception as e:
         print("error")
@@ -19,5 +18,4 @@ def parser():
     log.close()
     print(output.decode("utf-8"))
     return
-
 parser()
