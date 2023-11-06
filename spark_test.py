@@ -59,7 +59,7 @@ class ImageBatch:
 
 # Following is sample usage of ImageBatch
 
-file_dir = "Dataset"
+file_dir = "LargeDataset"
 
 def convert_bgr_array_to_rgb_array(img_array):
     B, G, R = img_array.T
@@ -86,13 +86,19 @@ def base_filter(img_data):
     else:
         return False
     
+import time
+
+start = time.time()
 
 image_df = ImageBatch("spark://TotallyNormalPC:7077", file_dir)
 resize_df = image_df.map(resize_img, (True,), "data_as_array")
-filtered_df = resize_df.filter(base_filter, args=())
+filtered_df = image_df.filter(base_filter, args=())
 # resized_df.printSchema()
-# filtered_df.show(truncate=True)
-filtered_df.save('Answer')
+filtered_df.show(truncate=True)
+# filtered_df.save('Answer')
 # another_resized_df = 
 # another_resized_df.printSchema()
 # another_resized_df.show(20, truncate=True)
+
+end = time.time()
+print(end - start)
